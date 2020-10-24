@@ -22,7 +22,7 @@ export const signUp = (userData) => {
         uid: response.user.uid,
         userType: 'user',
       };
-      firestore().collection('users').doc(response.user.uid).set({
+      await firestore().collection('users').doc(response.user.uid).set({
         obj,
       });
       dispatch({type: SIGNUP_SUCCESS, payload: obj});

@@ -3,6 +3,10 @@ import auth from '@react-native-firebase/auth';
 import {
   SIGNIN_ERROR,
   SIGNIN_LOADING,
+  SIGNIN_SUCCESS,
+  SIGNOUT_ERROR,
+  SIGNOUT_LOADING,
+  SIGNOUT_SUCCESS,
   SIGNUP_ERROR,
   SIGNUP_LOADING,
   SIGNUP_SUCCESS,
@@ -40,8 +44,32 @@ export const signIn = (userData) => {
         userData.email,
         userData.password,
       );
+
+      firestore()
+        .collection('users')
+        .doc(response.user.uid)
+        .onSnapshot((snapShot) => {
+          let obj = {
+            user: response.user,
+            name: snapShot.data().name,
+            userType: snapShot.data().userType,
+          };
+          dispatch({type: SIGNIN_SUCCESS, payload: obj});
+        });
     } catch (error) {
       dispatch({type: SIGNIN_ERROR, payload: error});
+    }
+  };
+};
+
+export const signOut = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({type: SIGNOUT_LOADING});
+      await auth().signOut();
+      dispatch({type: SIGNOUT_SUCCESS});
+    } catch (error) {
+      dispatch({type: SIGNOUT_ERROR, payload: error});
     }
   };
 };

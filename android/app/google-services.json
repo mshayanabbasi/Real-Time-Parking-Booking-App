@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "823512164766",
+    "firebase_url": "https://realtime-parking-booking-app.firebaseio.com",
+    "project_id": "realtime-parking-booking-app",
+    "storage_bucket": "realtime-parking-booking-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823512164766:android:632266cce7229e5a5e8e8f",
+        "android_client_info": {
+          "package_name": "com.realtimeparkingbookingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823512164766-m61t7ht7uif7jga30ddrp0re08kmr4po.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXORrx046FY3LiGd71z4I7DtYAtwh54mQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823512164766-m61t7ht7uif7jga30ddrp0re08kmr4po.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

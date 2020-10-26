@@ -3,15 +3,29 @@ import {Card, Text} from 'react-native-elements';
 import ButtonComponent from '../../components/Button';
 import InputComponent from '../../components/Input';
 import {Formik} from 'formik';
+import {useDispatch, useSelector} from 'react-redux';
+import {signIn} from '../../store/actions/authAction';
 
 const SignInScreen = () => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  let SignIn = (data) => {
+    const {email, password} = data;
+    const obj = {
+      email,
+      password,
+    };
+    dispatch(signIn(obj));
+  };
+  // console.log(user);
   return (
     <Formik
       initialValues={{
         email: '',
         password: '',
       }}
-      onSubmit={(values) => console.log(values)}>
+      onSubmit={(values) => SignIn(values)}>
       {({handleChange, handleSubmit, values}) => (
         <Card>
           <Text

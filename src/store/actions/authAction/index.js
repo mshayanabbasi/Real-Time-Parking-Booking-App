@@ -12,23 +12,22 @@ import {
   SIGNUP_SUCCESS,
 } from '../../types';
 
-export const signUp = (userData) => {
+export const signUp = ({name, email, password}) => {
   return async (dispatch) => {
     try {
       dispatch({type: SIGNUP_LOADING});
+      console.log('signUp');
       var response = await auth().createUserWithEmailAndPassword(
-        userData.email,
-        userData.password,
+        email,
+        password,
       );
-      let obj = {
-        name: userData.name,
-        email: userData.email,
-        uid: response.user.uid,
-        userType: 'user',
-      };
-      await firestore().collection('users').doc(response.user.uid).set({
-        obj,
-      });
+      let obj = {name, email, userId: response.user.uid, userType: 'user'};
+      await firestore()
+        .collection('users')
+        .doc(response.user.uid)
+        .set({
+          ...obj,
+        });
       dispatch({type: SIGNUP_SUCCESS, payload: obj});
     } catch (error) {
       dispatch({type: SIGNUP_ERROR, payload: error});
@@ -36,19 +35,17 @@ export const signUp = (userData) => {
   };
 };
 
-export const signIn = (userData) => {
+export const signIn = ({email, password}) => {
   return async (dispatch) => {
     try {
       dispatch({type: SIGNIN_LOADING});
-      var response = await auth().signInWithEmailAndPassword(
-        userData.email,
-        userData.password,
-      );
+      var response = await auth().signInWithEmailAndPassword(email, password);
 
       firestore()
         .collection('users')
         .doc(response.user.uid)
         .onSnapshot((snapShot) => {
+          console.log(snapShot);
           let obj = {
             user: response.user,
             name: snapShot.data().name,
